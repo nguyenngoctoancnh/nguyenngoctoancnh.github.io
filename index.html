@@ -1,15 +1,43 @@
-<!-- hitwebcounter Code START -->
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#div1, #div2 {
+  float: left;
+  width: 100px;
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+</style>
 
-                                      
-  <!DOCTYPE html>
-  <html>
-  <body>
-  
-  <h1>Trang web cá nhân của Toàndz</h1>
-  <a href="https://www.facebook.com/nguyenngoctoancnh/" target="_blank">
-    <img src="https://hitwebcounter.com/counter/counter.php?page=7852036&style=0024&nbdigits=5&type=page&initCount=0" title="Số con vợ yêu Toàn" Alt="web counter"   border="0" /></a>                                    
-  <p>My first paragraph.</p>
-  
-  </body>
-  </html>
-  
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+</head>
+<body>
+
+<h1><img src="man.gif" id="man" width="50" height="50">Nguyễn Ngọc Toàn</h1>
+<p>Drag the image back and forth between the two div elements.</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <img src="cle.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="40" height="40">
+</div>
+
+<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+</body>
+</html>
