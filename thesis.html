@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thesis Archive</title>
+  <link rel="icon" type="image/gif" href="man.gif">
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f5f5f0;
+      color: #1d1d1d;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .topbar a {
+      color: #0f3d7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .panel {
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #222;
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      margin-bottom: 22px;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .button-link {
+      display: inline-block;
+      padding: 10px 14px;
+      border: 1px solid #222;
+      border-radius: 8px;
+      background: #eef3fb;
+      color: #111;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .pdf-preview {
+      width: 100%;
+      height: 720px;
+      border: 1px solid #aaa;
+      background: #fff;
+    }
+
+    .version-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .version-list li {
+      padding: 14px 0;
+      border-top: 1px solid #ddd;
+    }
+
+    .version-list li:first-child {
+      border-top: 0;
+    }
+
+    .version-list a {
+      font-weight: bold;
+      color: #0f3d7a;
+      text-decoration: none;
+    }
+
+    .meta {
+      display: block;
+      margin-top: 4px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .empty-state {
+      color: #555;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="topbar">
+      <h1>Thesis Archive</h1>
+      <a href="index.html">Back to Home</a>
+    </div>
+
+    <section class="panel">
+      <h2>Latest Version</h2>
+      <p>This page always shows the latest successful PDF build from the thesis repository.</p>
+      <div class="action-row">
+        <a class="button-link" href="downloads/masterthesis.pdf" download>Download latest PDF</a>
+        <a class="button-link" href="downloads/masterthesis.pdf" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+      </div>
+      <iframe class="pdf-preview" src="downloads/masterthesis.pdf" title="Latest thesis PDF preview"></iframe>
+    </section>
+
+    <section class="panel">
+      <h2>Published Versions</h2>
+      <p>Each successful deployment from the thesis repository can publish a versioned PDF here for download.</p>
+      <ul id="version-list" class="version-list">
+        <li class="empty-state">Loading versions...</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    async function loadVersions() {
+      const list = document.getElementById('version-list');
+
+      try {
+        const response = await fetch('downloads/thesis-versions.txt', { cache: 'no-store' });
+        if (!response.ok) {
+          list.innerHTML = '<li class="empty-state">No published thesis versions yet.</li>';
+          return;
+        }
+
+        const text = await response.text();
+        const lines = text.split(/\r?\n/).filter(Boolean);
+
+        if (!lines.length) {
+          list.innerHTML = '<li class="empty-state">No published thesis versions yet.</li>';
+          return;
+        }
+
+        list.innerHTML = lines.map((line) => {
+          const [path, label, sha, publishedAt] = line.split('|');
+          const safePath = path || 'downloads/masterthesis.pdf';
+          const safeLabel = label || 'Published version';
+          const safeSha = sha || 'unknown';
+          const safePublishedAt = publishedAt || '';
+
+          return `
+            <li>
+              <a href="${safePath}" download>${safeLabel}</a>
+              <span class="meta">Commit ${safeSha}${safePublishedAt ? ` · ${safePublishedAt}` : ''}</span>
+            </li>
+          `;
+        }).join('');
+      } catch (error) {
+        list.innerHTML = '<li class="empty-state">Version list is temporarily unavailable.</li>';
+      }
+    }
+
+    loadVersions();
+  </script>
+</body>
+
+</html>

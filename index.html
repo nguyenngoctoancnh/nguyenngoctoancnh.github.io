@@ -1,95 +1,126 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head profile="http://www.w3.org/2005/10/profile">
-  <link rel="icon" type="image/gif" href="man.gif" />
-</head>
-<style>
-  #div1,
-  #div2 {
-    float: left;
-    width: 100px;
-    height: 35px;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid black;
-  }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nguyen Ngoc Toan</title>
+  <link rel="icon" type="image/gif" href="man.gif">
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: linear-gradient(180deg, #f4f1ea 0%, #e8edf2 100%);
+      color: #1d1d1d;
+    }
 
-  .thesis-section {
-    margin-top: 30px;
-    max-width: 900px;
-    padding: 16px;
-    border: 1px solid #222;
-    border-radius: 8px;
-    background: #f7f7f7;
-  }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
 
-  .thesis-link {
-    display: inline-block;
-    margin: 10px 0 16px;
-    padding: 10px 14px;
-    border: 1px solid #222;
-    border-radius: 6px;
-    background: #fff;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-  }
+    .hero {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
 
-  .thesis-link:hover {
-    background: #ececec;
-  }
+    .hero img {
+      width: 96px;
+      height: 96px;
+    }
 
-  .thesis-preview {
-    width: 100%;
-    height: 700px;
-    border: 1px solid #999;
-    background: #fff;
-  }
-</style>
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+    }
 
-<script>
-  function allowDrop(ev) {
-    ev.preventDefault();
-  }
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      max-width: 700px;
+    }
 
-  function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
 
-  function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-  }
-</script>
+    .nav-card {
+      display: block;
+      padding: 22px;
+      border: 1px solid #202020;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.86);
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-card:hover {
+      transform: translateY(-2px);
+      transition: transform 0.18s ease;
+    }
+
+    .nav-card h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    .nav-card p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .contact-row {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+    }
+
+    .contact-row img {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
 </head>
 
 <body>
+  <main class="page">
+    <section class="hero">
+      <img src="man.gif" alt="Avatar icon">
+      <div>
+        <h1>Nguyen Ngoc Toan</h1>
+        <p>Mechatronics engineer. This site is the main entry for my profile, research outputs, and thesis downloads.</p>
+      </div>
+    </section>
 
-  <h1><img src="man.gif" id="man" width="50" height="50">Nguyễn Ngọc Toàn</h1>
-  <p>Mechatronics Engineer</p>
+    <section class="nav-grid">
+      <a class="nav-card" href="thesis.html">
+        <h2>Thesis Archive</h2>
+        <p>Open a dedicated page for the latest thesis PDF, embedded preview, and downloadable build versions published from GitHub Actions.</p>
+      </a>
 
-  <h1>
-    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <img src="cle.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="40" height="40">
-    </div>
+      <a class="nav-card" href="contact.html">
+        <h2>Contact</h2>
+        <p>Reach out through the contact page or social links for research collaboration, engineering work, or project discussion.</p>
+      </a>
 
-    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <img src="pencil.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="40" height="40">
-    </div>
-  </h1>
-  <p>Hi, Anh iu Nguu Ngok Huyền :v</p>
-  <br>
-  <p>Làm vk anh nhak:v</p>
-  <p><img src="facebook.jpg" alt="facebook"width="30"height="30"><a href="https://www.facebook.com/nguyenngoctoancnh/">@nguyenngoctoancnh</a></p>
+      <a class="nav-card" href="downloads/masterthesis.pdf">
+        <h2>Quick Download</h2>
+        <p>Direct access to the latest compiled thesis PDF published from the source repository.</p>
+      </a>
+    </section>
 
-  <section class="thesis-section">
-    <h2>Latest Thesis PDF</h2>
-    <p>The newest compiled thesis from my research repository is published here after each successful build.</p>
-    <a class="thesis-link" href="downloads/masterthesis.pdf" download>Download masterthesis.pdf</a>
-    <iframe class="thesis-preview" src="downloads/masterthesis.pdf" title="Latest thesis PDF preview"></iframe>
-  </section>
+    <p class="contact-row"><img src="facebook.jpg" alt="Facebook icon"><a href="https://www.facebook.com/nguyenngoctoancnh/">@nguyenngoctoancnh</a></p>
+  </main>
 </body>
 
 </html>
