@@ -7,119 +7,598 @@
   <title>Nguyen Ngoc Toan</title>
   <link rel="icon" type="image/gif" href="man.gif">
   <style>
+    :root {
+      --bg: #f6f0e8;
+      --bg-soft: #fbf7f2;
+      --surface: rgba(255, 252, 248, 0.84);
+      --surface-strong: #fffaf4;
+      --ink: #211d1a;
+      --muted: #6f655c;
+      --line: rgba(50, 36, 24, 0.16);
+      --accent: #6c7f73;
+      --accent-dark: #4b5c52;
+      --warm: #dcc8b0;
+      --shadow: 0 20px 50px rgba(48, 34, 24, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(180deg, #f4f1ea 0%, #e8edf2 100%);
-      color: #1d1d1d;
+      background:
+        radial-gradient(circle at top left, rgba(220, 200, 176, 0.45), transparent 36%),
+        radial-gradient(circle at top right, rgba(137, 158, 145, 0.18), transparent 30%),
+        linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+      color: var(--ink);
     }
 
     .page {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 48px 24px 64px;
+      padding: 22px 24px 80px;
+    }
+
+    .announcement {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin: 18px 0 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-mark img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .site-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-shell {
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--surface);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -70px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(108, 127, 115, 0.1);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 28px;
+      align-items: stretch;
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: 96px 1fr;
-      gap: 20px;
-      align-items: center;
-      margin-bottom: 36px;
+      position: relative;
+      z-index: 1;
     }
 
-    .hero img {
-      width: 96px;
-      height: 96px;
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .hero h1 {
-      margin: 0 0 8px;
-      font-size: 42px;
+      margin: 0;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 0.95;
+      max-width: 760px;
+      font-weight: 500;
     }
 
-    .hero p {
-      margin: 0;
+    .hero-lead {
+      margin: 20px 0 0;
       font-size: 18px;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .button-primary {
+      background: var(--accent-dark);
+      color: #fffdf8;
+      border: 1px solid var(--accent-dark);
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .button-primary:hover,
+    .button-secondary:hover,
+    .nav-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
       max-width: 700px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .hero-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .portrait-card,
+    .quote-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .portrait-card {
+      padding: 22px;
+    }
+
+    .portrait {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .portrait-frame {
+      width: 94px;
+      height: 94px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--warm), rgba(108, 127, 115, 0.2));
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .portrait-frame img {
+      width: 56px;
+      height: 56px;
+    }
+
+    .portrait-copy h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .portrait-copy p,
+    .quote-card p,
+    .highlight-card p,
+    .nav-card p,
+    .footer-note {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(246, 240, 232, 0.9);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .quote-card {
+      padding: 22px;
+    }
+
+    .quote-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .section {
+      margin-top: 34px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .section-header p {
+      margin: 0;
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
     .nav-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
-      margin-top: 28px;
     }
 
     .nav-card {
       display: block;
-      padding: 22px;
-      border: 1px solid #202020;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.86);
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface-strong);
       color: inherit;
       text-decoration: none;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow);
     }
 
-    .nav-card:hover {
-      transform: translateY(-2px);
-      transition: transform 0.18s ease;
+    .nav-card small {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .nav-card h2 {
       margin: 0 0 10px;
-      font-size: 26px;
+      font-size: 30px;
+      font-weight: 500;
     }
 
-    .nav-card p {
-      margin: 0;
-      line-height: 1.6;
+    .nav-card strong {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
     }
 
-    .contact-row {
-      margin-top: 28px;
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .highlight-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.64);
+    }
+
+    .highlight-card h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .footer-note {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 18px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
     }
 
-    .contact-row img {
-      width: 30px;
-      height: 30px;
+    .footer-note a {
+      color: var(--accent-dark);
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .nav-grid,
+      .highlight-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header,
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 16px 48px;
+      }
+
+      .hero-shell,
+      .nav-card,
+      .portrait-card,
+      .quote-card,
+      .highlight-card {
+        border-radius: 20px;
+      }
+
+      .hero-shell {
+        padding: 22px;
+      }
     }
   </style>
 </head>
 
 <body>
   <main class="page">
-    <section class="hero">
-      <img src="man.gif" alt="Avatar icon">
-      <div>
-        <h1>Nguyen Ngoc Toan</h1>
-        <p>Mechatronics engineer. This site is the main entry for my profile, research outputs, and thesis downloads.</p>
+    <div class="announcement">Research archive, engineering notes, and thesis releases</div>
+
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="man.gif" alt="Avatar icon">
+        </div>
+        <div class="brand-copy">
+          <strong>Nguyen Ngoc Toan</strong>
+          <span>Mechatronics Engineer</span>
+        </div>
+      </div>
+
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="thesis.html">Thesis</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.facebook.com/nguyenngoctoancnh/">Facebook</a>
+      </nav>
+    </header>
+
+    <section class="hero-shell">
+      <div class="hero-grid">
+        <section class="hero">
+          <p class="eyebrow">Intentional engineering, documented clearly</p>
+          <h1>A personal site for research, thesis releases, and practical engineering work.</h1>
+          <p class="hero-lead">This space is designed to feel more like a professional archive than a file dump. It brings together my latest thesis builds, downloadable versions, and the main places to follow my work.</p>
+
+          <div class="hero-actions">
+            <a class="button-primary" href="thesis.html">Browse Thesis Archive</a>
+            <a class="button-secondary" href="downloads/masterthesis.pdf">Download Latest PDF</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>1</strong>
+              <span>Dedicated archive page for the latest PDF and version history.</span>
+            </div>
+            <div class="stat">
+              <strong>Auto</strong>
+              <span>GitHub Actions can publish new thesis builds directly to this site.</span>
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>Direct public access for download, sharing, and review.</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="hero-aside">
+          <section class="portrait-card">
+            <div class="portrait">
+              <div class="portrait-frame">
+                <img src="man.gif" alt="Avatar icon">
+              </div>
+              <div class="portrait-copy">
+                <h2>Research Profile</h2>
+                <p>A cleaner front door for academic output, project notes, and downloadable thesis files.</p>
+              </div>
+            </div>
+
+            <div class="chip-row">
+              <span class="chip">Mechatronics</span>
+              <span class="chip">Embedded Systems</span>
+              <span class="chip">Research</span>
+            </div>
+          </section>
+
+          <section class="quote-card">
+            <strong>Your work should feel organized, polished, and easy to access.</strong>
+            <p>The thesis area is separated into its own page so the homepage can stay focused while still guiding visitors to your most important downloadable result.</p>
+          </section>
+        </aside>
       </div>
     </section>
 
-    <section class="nav-grid">
-      <a class="nav-card" href="thesis.html">
-        <h2>Thesis Archive</h2>
-        <p>Open a dedicated page for the latest thesis PDF, embedded preview, and downloadable build versions published from GitHub Actions.</p>
-      </a>
+    <section class="section">
+      <div class="section-header">
+        <h2>Explore the site</h2>
+        <p>A simple structure with a main landing page, a dedicated thesis archive, and direct contact links.</p>
+      </div>
 
-      <a class="nav-card" href="contact.html">
-        <h2>Contact</h2>
-        <p>Reach out through the contact page or social links for research collaboration, engineering work, or project discussion.</p>
-      </a>
+      <div class="nav-grid">
+        <a class="nav-card" href="thesis.html">
+          <small>Archive</small>
+          <h2>Thesis Versions</h2>
+          <p>Open the thesis page to view the latest PDF, preview it inline, and access published build versions.</p>
+          <strong>Open thesis page</strong>
+        </a>
 
-      <a class="nav-card" href="downloads/masterthesis.pdf">
-        <h2>Quick Download</h2>
-        <p>Direct access to the latest compiled thesis PDF published from the source repository.</p>
-      </a>
+        <a class="nav-card" href="downloads/masterthesis.pdf">
+          <small>Download</small>
+          <h2>Latest PDF</h2>
+          <p>Direct access to the newest compiled thesis file for review, download, or sharing with supervisors and peers.</p>
+          <strong>Download now</strong>
+        </a>
+
+        <a class="nav-card" href="contact.html">
+          <small>Connect</small>
+          <h2>Contact & Links</h2>
+          <p>Reach out for research discussion, project collaboration, or general engineering communication.</p>
+          <strong>See contact page</strong>
+        </a>
+      </div>
     </section>
 
-    <p class="contact-row"><img src="facebook.jpg" alt="Facebook icon"><a href="https://www.facebook.com/nguyenngoctoancnh/">@nguyenngoctoancnh</a></p>
+    <section class="section">
+      <div class="section-header">
+        <h2>What this site does</h2>
+        <p>The structure is built to make your thesis easier to discover and more professional to present.</p>
+      </div>
+
+      <div class="highlight-grid">
+        <article class="highlight-card">
+          <h3>Main page first</h3>
+          <p>The landing page now acts like a brand-style homepage instead of a single utility page. It introduces you and routes visitors clearly.</p>
+        </article>
+
+        <article class="highlight-card">
+          <h3>Separate thesis space</h3>
+          <p>The thesis content lives on its own page so version history, previews, and downloads can expand without cluttering the homepage.</p>
+        </article>
+
+        <article class="highlight-card">
+          <h3>Built for updates</h3>
+          <p>Once the publishing secret is configured, each successful build can place a fresh PDF and version record directly on your site.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer-note">
+      <span>Facebook: <a href="https://www.facebook.com/nguyenngoctoancnh/">@nguyenngoctoancnh</a></span>
+      <span>Thesis archive: <a href="thesis.html">thesis.html</a></span>
+    </footer>
   </main>
 </body>
 
